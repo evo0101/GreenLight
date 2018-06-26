@@ -14,8 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.net.URI;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
 public class HDFSServiceImpl implements HDFSService {
     private static final Logger logger = LoggerFactory.getLogger(HDFSServiceImpl.class);
     public static void main(String[] args) throws Exception {
@@ -40,7 +38,7 @@ public class HDFSServiceImpl implements HDFSService {
         conf.set("fs.hdfs.impl", org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
         conf.set("fs.file.impl", org.apache.hadoop.fs.LocalFileSystem.class.getName());
         // Set HADOOP user
-        System.setProperty("HADOOP_USER_NAME", "hdfs");
+        System.setProperty("HADOOP_USER_NAME", "root");
         System.setProperty("hadoop.home.dir", "/");
         //Get the filesystem - HDFS
         FileSystem fs = FileSystem.get(URI.create(hdfsuri), conf);
@@ -76,7 +74,7 @@ public class HDFSServiceImpl implements HDFSService {
         logger.info(out);
         inputStream.close();
         fs.close();
-
+        logger.info("The file content" + out);
     }
 
 
